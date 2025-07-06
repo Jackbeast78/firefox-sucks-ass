@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Search Hub</title>
+<style>
+  html,body{margin:0;padding:0;height:100vh;background:#000;color:#bf8f00;font-family:Segoe UI,sans-serif;display:flex;justify-content:center;align-items:center}
+  .container{max-width:900px;width:100%;padding:40px 20px;display:flex;flex-direction:column;align-items:center;gap:20px}
+  input{width:550px;padding:14px 18px;font-size:17px;border-radius:8px;border:2px solid #bf8f00;background:#403000;color:#bf8f00;text-align:center;outline:none}
+  .buttons{display:flex;gap:25px}
+  button{width:150px;padding:12px 28px;font-size:17px;border-radius:8px;font-weight:600;border:none;cursor:pointer;transition:0.3s;text-align:center}
+  .btn-ddg{background:#bf8f00;color:#000}
+  .btn-reddit{background:#FF4500;color:#000}
+  .btn-wiki{background:#3366CC;color:#000}
+  .btn-ddg:hover{background:#000;color:#bf8f00}
+  .btn-reddit:hover{background:#000;color:#FF4500}
+  .btn-wiki:hover{background:#000;color:#3366CC}
+</style>
+</head>
+<body>
+<div class="container">
+  <input id="q" placeholder="Search the web..." autocomplete="off" />
+  <div class="buttons">
+    <button data-e="reddit" class="btn-reddit">Reddit</button>
+    <button data-e="ddg" class="btn-ddg">Search</button>
+    <button data-e="wiki" class="btn-wiki">Wikipedia</button>
+  </div>
+</div>
+<script>
+  document.querySelectorAll("button[data-e]").forEach(b=>b.onclick=()=>{
+    let q=document.getElementById("q").value.trim();
+    if(!q)return;
+    let u="";
+    switch(b.dataset.e){
+      case"ddg": u=`https://duckduckgo.com/?q=${encodeURIComponent(q)}`; break;
+      case"reddit": u=`https://www.google.com/search?q=${encodeURIComponent(q+" site:reddit.com -ai")}`; break;
+      case"wiki": u=`https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(q)}`; break;
+    }
+    window.location.href=u;
+  });
+  const btnDDG = document.querySelector('button[data-e="ddg"]');
+  document.getElementById("q").addEventListener("keydown", e => {
+    if(e.key === "Enter") btnDDG.click();
+  });
+</script>
+</body>
+</html>
