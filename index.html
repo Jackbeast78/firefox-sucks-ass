@@ -36,7 +36,7 @@
       case"reddit": u=`https://www.google.com/search?q=${encodeURIComponent(q+" site:reddit.com -ai")}`; break;
       case"wiki": u=`https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(q)}`; break;
     }
-    window.location.href=u;
+    window.open(u, '_blank');
   });
   const btnDDG = document.querySelector('button[data-e="ddg"]');
   document.getElementById("q").addEventListener("keydown", e => {
